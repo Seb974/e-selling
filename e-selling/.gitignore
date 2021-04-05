@@ -26,3 +26,7 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+###> MacOS file ###
+../.DS_Store
+###< MacOS file ###
