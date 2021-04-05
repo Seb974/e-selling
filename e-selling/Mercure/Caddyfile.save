@@ -1,0 +1,34 @@
+# Learn how to configure the Mercure.rocks Hub on https://mercure.rocks/docs/hub/config
+{
+    # Debug mode (disable it in production!)
+    {$DEBUG}
+    servers {
+        protocol {
+            experimental_http3
+        }
+    }
+}
+
+{$SERVER_NAME:localhost}
+
+log
+
+route {
+    encode zstd gzip
+
+    mercure {
+        transport_url local://local
+        publisher_jwt {$MERCURE_JWT_KEY} HS256
+        subscriber_jwt {$MERCURE_JWT_KEY} HS256
+        cors_origins http://localhost:8000
+        publish_origins *
+        anonymous true
+        write_timeout 0s
+        subscriptions
+        heartbeat 40s
+    }
+
+    respond /healthz 200
+
+    respond "Not Found" 404
+}

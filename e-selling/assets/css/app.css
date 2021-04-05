@@ -1,0 +1,81 @@
+#app {
+    position: relative;
+    min-height: 100vh;
+    width: 100%!important;
+}
+.navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 50;
+    top: 0px;
+}
+
+main {
+    position: relative;
+    min-height: 100%!important;
+    margin-top: 93px;
+}
+
+#footer {
+    position:absolute;
+    display: flex;
+    justify-content: space-around;
+    bottom: 0px!important;
+    width: 100%!important;
+}
+
+.card-picture {
+    border-radius: 5px 5px 0 0;
+}
+
+.card-price-list {
+    display: flex;
+    align-items: flex-end;
+    /* padding-right: 15px; */
+}
+
+.qty-container {
+	display:flex;
+	width: 100%;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+.qty-component-button {
+	width: 100%;
+    height: 45px;
+	display: flex;
+	/* justify-content: flex-end!important; */
+    /* align-items: center!important; */
+    margin-top: auto;
+    margin-bottom: auto;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding-left: 0px;
+	padding-right: 15px;
+}
+.qty-component-input {
+	margin-left: 0px;
+	margin-right: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+@media (max-width: 691px) {
+    #footer { 
+        min-height: 931px;
+        height: 931px;
+    }
+    main {
+        padding-bottom: 931px!important;
+    }
+}
+
+@media (min-width: 692px) {
+    #footer {
+        min-height: 325px;
+        height: 325px;
+    }
+    main {
+        padding-bottom: 325px;
+    }
+}

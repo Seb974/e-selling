@@ -1,0 +1,38 @@
+{
+    "devDependencies": {
+        "@babel/preset-react": "^7.13.13",
+        "@symfony/stimulus-bridge": "^2.0.0",
+        "@symfony/webpack-encore": "^1.0.0",
+        "core-js": "^3.0.0",
+        "regenerator-runtime": "^0.13.2",
+        "stimulus": "^2.0.0",
+        "webpack-notifier": "^1.6.0"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server --port 8080",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress"
+    },
+    "dependencies": {
+        "algolia-places-react": "^1.6.1",
+        "axios": "^0.21.1",
+        "bootstrap": "^4.6.0",
+        "dotenv": "^8.2.0",
+        "event-source-polyfill": "^1.0.22",
+        "flatpickr": "^4.6.9",
+        "jquery": "^3.6.0",
+        "jwt-decode": "^3.1.2",
+        "leaflet": "^1.7.1",
+        "popper.js": "^1.16.1",
+        "react": "^17.0.2",
+        "react-bootstrap": "^1.5.2",
+        "react-dom": "^17.0.2",
+        "react-flatpickr": "^3.10.7",
+        "react-leaflet": "^3.1.0",
+        "react-router-dom": "^5.2.0",
+        "react-select": "^4.3.0"
+    }
+}
