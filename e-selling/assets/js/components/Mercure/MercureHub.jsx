@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import ProductsContext from '../../contexts/ProductsContext';
 import ProductActions from '../../services/ProductActions';
+import AuthActions from '../../services/AuthActions';
 import AuthContext from '../../contexts/AuthContext';
 
 const MercureHub = ({ children }) => {
@@ -12,10 +13,10 @@ const MercureHub = ({ children }) => {
 
     useEffect(() => {
         closeIfExists();
-        url.searchParams.append('topic', 'http://localhost:8000/api/products/{id}');
-        url.searchParams.append('topic', 'http://localhost:8000/api/users/{id}');
-        url.searchParams.append('topic', 'http://localhost:8000/api/users/{id}/metas');
-        setEventSource(new EventSourcePolyfill(url, { withCredentials: true }));
+        url.searchParams.append('topic', process.env.SERVER_DOMAIN + '/api/products/{id}');
+        url.searchParams.append('topic', process.env.SERVER_DOMAIN + '/api/users/{id}');
+        url.searchParams.append('topic', process.env.SERVER_DOMAIN + '/api/users/{id}/metas');
+        setEventSource(new EventSourcePolyfill(url, { withCredentials: true}));
     }, [currentUser]);
 
     const closeIfExists = () => {
@@ -42,11 +43,11 @@ const MercureHub = ({ children }) => {
     //     console.log(event);
     // };
 
-    // eventSource.onerror = event => {
-    //     console.log(event);
-    //     if (event.error.message.toUpperCase().includes("NO ACTIVITY"))
-    //         console.log("Coupure de Mercure");
-    // };
+    eventSource.onerror = event => {
+        console.log(event);
+        // if (event.error.message.toUpperCase().includes("NO ACTIVITY"))
+        //     console.log("Coupure de Mercure");
+    };
 
     return <>{ children }</>
 }

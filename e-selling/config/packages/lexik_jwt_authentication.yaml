@@ -6,7 +6,7 @@ lexik_jwt_authentication:
 
     encoder:
         service:            lexik_jwt_authentication.encoder.lcobucci
-        signature_algorithm: RS256
+        signature_algorithm: HS256
 
     token_extractors:
 

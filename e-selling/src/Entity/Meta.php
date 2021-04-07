@@ -7,7 +7,6 @@ use App\Repository\MetaRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * @ORM\Entity(repositoryClass=MetaRepository::class)
  * @ApiResource(
@@ -15,8 +14,16 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     normalizationContext={
  *          "groups"={"metas_read", "users_read"}
  *     },
- *     collectionOperations={"GET", "POST"},
- *     itemOperations={"GET", "PUT", "PATCH", "DELETE"},
+ *     collectionOperations={
+ *          "GET"={"security"="is_granted('ROLE_ADMIN')"},
+ *          "POST"
+ *     },
+ *     itemOperations={
+ *          "GET"={"security"="is_granted('ROLE_ADMIN') or object.getUser() == user"},
+ *          "PUT"={"security"="is_granted('ROLE_ADMIN') or object.getUser() == user"},
+ *          "PATCH"={"security"="is_granted('ROLE_ADMIN') or object.getUser() == user"},
+ *          "DELETE"={"security"="is_granted('ROLE_ADMIN') or object.getUser() == user"}
+ *     },
  *     mercure="object.getMercureOptions(object.getUser().getId())"
  * )
  */
@@ -25,7 +32,7 @@ class Meta
     /**
      * server domain, used to configure the Mercure hub topics
      */
-    private static $domain = 'http://localhost:8000';
+    private static $domain = 'https://clikeat.fr';
 
     /**
      * @ORM\Id

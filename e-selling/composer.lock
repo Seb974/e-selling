@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b02b5ce9bf20095be8271211f10406d5",
+    "content-hash": "f51977eea44173e69b78fb7c2f68ba71",
     "packages": [
         {
             "name": "api-platform/core",
@@ -5139,25 +5139,29 @@
         },
         {
             "name": "symfony/mercure",
-            "version": "v0.4.1",
+            "version": "v0.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mercure.git",
-                "reference": "e4d96d15b41ed4f86e0674d5c9ef366985bf6b1c"
+                "reference": "52b074d0c9bc303605bcd053563a8c67ed9ca55a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mercure/zipball/e4d96d15b41ed4f86e0674d5c9ef366985bf6b1c",
-                "reference": "e4d96d15b41ed4f86e0674d5c9ef366985bf6b1c",
+                "url": "https://api.github.com/repos/symfony/mercure/zipball/52b074d0c9bc303605bcd053563a8c67ed9ca55a",
+                "reference": "52b074d0c9bc303605bcd053563a8c67ed9ca55a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1.3",
-                "symfony/http-client": "^4.3.5|^5.0"
+                "symfony/deprecation-contracts": "^2.0",
+                "symfony/http-client": "^4.4|^5.0",
+                "symfony/http-foundation": "^4.4|^5.0",
+                "symfony/web-link": "^4.4|^5.0"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "^4.2.4|^5.0",
-                "symfony/stopwatch": "^4.3|^5.0"
+                "lcobucci/jwt": "^3.4|^4.0",
+                "symfony/phpunit-bridge": "^4.4|^5.0",
+                "symfony/stopwatch": "^4.4|^5.0"
             },
             "suggest": {
                 "symfony/stopwatch": "Integration with the profiler performances"
@@ -5165,7 +5169,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "0.3.x-dev"
+                    "dev-main": "0.5.x-dev"
                 },
                 "thanks": {
                     "name": "dunglas/mercure",
@@ -5201,36 +5205,32 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/mercure/issues",
-                "source": "https://github.com/symfony/mercure/tree/v0.4.1"
+                "source": "https://github.com/symfony/mercure/tree/v0.5.3"
             },
             "funding": [
                 {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
+                    "url": "https://github.com/dunglas",
                     "type": "github"
                 },
                 {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/mercure",
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-26T20:15:59+00:00"
+            "time": "2021-04-04T13:19:55+00:00"
         },
         {
             "name": "symfony/mercure-bundle",
-            "version": "v0.2.6",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mercure-bundle.git",
-                "reference": "a18bba0144eb1637cfcf6037587584decede5878"
+                "reference": "059c6f383b12c311d5e3f61fe46170eb868169ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mercure-bundle/zipball/a18bba0144eb1637cfcf6037587584decede5878",
-                "reference": "a18bba0144eb1637cfcf6037587584decede5878",
+                "url": "https://api.github.com/repos/symfony/mercure-bundle/zipball/059c6f383b12c311d5e3f61fe46170eb868169ca",
+                "reference": "059c6f383b12c311d5e3f61fe46170eb868169ca",
                 "shasum": ""
             },
             "require": {
@@ -5238,7 +5238,8 @@
                 "symfony/config": "^4.4|^5.0",
                 "symfony/dependency-injection": "^4.4|^5.0",
                 "symfony/http-kernel": "^4.4|^5.0",
-                "symfony/mercure": "^0.3|^0.4"
+                "symfony/mercure": "^0.5",
+                "symfony/web-link": "^4.4|^5.0"
             },
             "require-dev": {
                 "symfony/phpunit-bridge": "^4.3.7|^5.0",
@@ -5283,23 +5284,19 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/mercure-bundle/issues",
-                "source": "https://github.com/symfony/mercure-bundle/tree/v0.2.6"
+                "source": "https://github.com/symfony/mercure-bundle/tree/v0.3.0"
             },
             "funding": [
                 {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
+                    "url": "https://github.com/dunglas",
                     "type": "github"
                 },
                 {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/mercure-bundle",
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-26T20:52:26+00:00"
+            "time": "2021-03-30T16:59:25+00:00"
         },
         {
             "name": "symfony/messenger",

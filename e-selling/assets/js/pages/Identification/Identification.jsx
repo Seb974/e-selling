@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Login from './login';
+import Login from './Login';
 import Register from './Register';
 
 const Identification = (props) => {

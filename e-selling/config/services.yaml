@@ -40,12 +40,16 @@ services:
         arguments:
             $key: '%env(MERCURE_JWT_KEY)%'
             $domain: '%env(SERVER_DOMAIN)%'
+            $path: '%env(MERCURE_PATH)%'
             $tokenTTL: '%env(JWT_TOKEN_TTL)%'
 
     App\Service\JwtAuthentication\CookieGenerator:
         arguments:
             $tokenTTL: '%env(JWT_TOKEN_TTL)%'
-            $secure: '%env(bool:JWT_COOKIE_SECURE)%'
+
+    App\Service\CookieCleaner\CookieCleaner:
+        arguments:
+            $mercurePath: '%env(MERCURE_PATH)%'
 
     App\EventSubscriber\Authentication\JwtCreationSubscriber:
         tags:

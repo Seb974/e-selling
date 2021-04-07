@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Security;
  * CookieGenerator
  *
  * Informations :
- * This service create with its unique method "generate", the MercureAuthorization cookie.
+ * This service create with its unique public method "generate", the MercureAuthorization cookie.
  * It contains the privates channels that the user given as unique parameter of the function 
  * is subscribed to. 
  * 
@@ -25,14 +25,16 @@ use Symfony\Component\Security\Core\Security;
 class CookieGenerator
 {
     private $key;
+    private $path;
     private $config;
-    private $security;
     private $domain;
+    private $security;
     private $tokenTTL;
     
-    public function __construct(string $key, string $domain, string $tokenTTL, Security $security)
+    public function __construct(string $key, string $domain, string $path, string $tokenTTL, Security $security)
     {
         $this->key = $key;
+        $this->path = $path;
         $this->domain = $domain;
         $this->tokenTTL = $tokenTTL;
         $this->security = $security;
@@ -41,30 +43,38 @@ class CookieGenerator
 
     public function generate(User $user = null) : Cookie 
     {
-        $publicChannels = [];
-        $id = $user != null ? $user->getId() : 0;
+        $expiresDate = (new \DateTime())->add(new \DateInterval('PT' . $this->tokenTTL . 'S'));
 
+        $token = $this->config->builder()
+                      ->withClaim('mercure', ['subscribe' => $this->getChannels($user)])
+                      ->getToken(new Sha256(), $this->config->signingKey())
+                      ->toString();
+
+        return Cookie::create('mercureAuthorization')
+                      ->withValue($token)
+                      ->withDomain(null)
+                      ->withPath($this->path)
+                      ->withSecure(true)
+                      ->withHttpOnly(true)
+                      ->withSameSite('lax')
+                      ->withExpires($expiresDate);
+    }
+
+    private function getChannels(User $user = null) : array
+    {
+        $id = $user != null ? $user->getId() : 0;
         $teamPrivateChannels = [
             $this->domain . "/api/users/{id}",                      // users updates
             $this->domain . "/api/users/{id}/metas",                // metas users updates
             $this->domain . "/api/users/{id}/shipments",            // shipments updates
             $this->domain . "/api/private",                         // general updates (unused)
         ];
-
         $selfPrivateChannels = [
             $this->domain . "/api/users/" . $id,                    // self updates
             $this->domain . "/api/users/" . $id . "/metas",         // self metas updates
             $this->domain . "/api/users/" . $id . "/shipments",     // shipments updates
         ];
-
-        $channels = $user == null ? $publicChannels :
+        return $user == null ? [] : 
             ($this->security->isGranted("ROLE_TEAM") ? $teamPrivateChannels : $selfPrivateChannels);
-
-        $token = $this->config->builder()
-                      ->withClaim('mercure', ['subscribe' => $channels])
-                      ->getToken(new Sha256(), $this->config->signingKey())
-                      ->toString();
-
-        return Cookie::fromString("mercureAuthorization={$token}; Max-Age={$this->tokenTTL}; {$_ENV['MERCURE_COOKIE_CONFIG']}");
     }
 }

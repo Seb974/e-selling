@@ -3,4 +3,5 @@ mercure:
     hubs:
         default:
             url: '%env(MERCURE_URL)%'
-            jwt_provider: App\Service\Mercure\JwtProvider
+            jwt:
+                provider: App\Service\Mercure\JwtProvider

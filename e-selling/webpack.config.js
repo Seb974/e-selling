@@ -80,6 +80,7 @@ Encore
         options['process.env'].MERCURE_URL = JSON.stringify(env.parsed.MERCURE_URL);
         options['process.env'].MERCURE_SUBSCRIBE_URL = JSON.stringify(env.parsed.MERCURE_SUBSCRIBE_URL);
         options['process.env'].MERCURE_JWT_TOKEN = JSON.stringify(env.parsed.MERCURE_JWT_TOKEN);
+        options['process.env'].SERVER_DOMAIN = JSON.stringify(env.parsed.SERVER_DOMAIN);
     })
 ;
 
