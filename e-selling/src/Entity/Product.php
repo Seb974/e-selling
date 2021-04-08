@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProductRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -16,8 +18,16 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      normalizationContext={
  *          "groups"={"products_read"}
  *      },
- *      collectionOperations={"GET", "POST"},
- *      itemOperations={"GET", "PUT", "PATCH", "DELETE"}
+ *      collectionOperations={
+ *          "GET",
+ *          "POST"={"security"="is_granted('ROLE_ADMIN')"},
+ *      },
+ *      itemOperations={
+ *          "GET",
+ *          "PUT"={"security"="is_granted('ROLE_ADMIN')"},
+ *          "PATCH"={"security"="is_granted('ROLE_ADMIN')"},
+ *          "DELETE"={"security"="is_granted('ROLE_ADMIN')"},
+ *      }
  */
 class Product
 {
@@ -78,6 +88,23 @@ class Product
      * @Groups({"products_read"})
      */
     private $isStockManaged;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="products")
+     * @Groups({"products_read"})
+     */
+    private $categories;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     * @Groups({"products_read"})
+     */
+    private $userGroups = [];
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -176,6 +203,45 @@ class Product
     public function setIsStockManaged(?bool $isStockManaged): self
     {
         $this->isStockManaged = $isStockManaged;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->categories->removeElement($category)) {
+            $category->removeProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function getUserGroups(): ?array
+    {
+        return $this->userGroups;
+    }
+
+    public function setUserGroups(?array $userGroups): self
+    {
+        $this->userGroups = $userGroups;
 
         return $this;
     }
