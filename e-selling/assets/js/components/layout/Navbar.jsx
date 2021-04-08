@@ -69,13 +69,13 @@ const Navbar = ({ history }) => {
                                     <>
                                         {/* <Link className="dropdown-item" to="/categories">Catégories</Link>
                                         <div className="dropdown-divider"></div> */}
-                                        {/* <Link className="dropdown-item" to="/units">Unités</Link>
-                                        <div className="dropdown-divider"></div> */}
-                                        <Link className="dropdown-item" to="/products">Produits</Link>
+                                        {/* <Link className="dropdown-item" to="/units">Unités</Link>  */}
                                         <div className="dropdown-divider"></div>
-                                        {/* <Link className="dropdown-item" to="/suppliers">Fournisseurs</Link>
-                                        <div className="dropdown-divider"></div> */}
-                                        <Link className="dropdown-item" to="/users">Utilisateurs</Link>
+                                        <a className="dropdown-item" href="https://admin.clikeat.fr">Accès Admin.</a>
+                                        {/* <div className="dropdown-divider"></div>
+                                        <Link className="dropdown-item" to="/suppliers">Fournisseurs</Link>
+                                        <div className="dropdown-divider"></div>
+                                        <Link className="dropdown-item" to="/users">Utilisateurs</Link> */}
                                     </>
                                 }
 

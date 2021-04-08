@@ -42,14 +42,17 @@ services:
             $domain: '%env(SERVER_DOMAIN)%'
             $path: '%env(MERCURE_PATH)%'
             $tokenTTL: '%env(JWT_TOKEN_TTL)%'
+            $cookieDomain: '%env(STRICT_DOMAIN)%'
 
     App\Service\JwtAuthentication\CookieGenerator:
         arguments:
             $tokenTTL: '%env(JWT_TOKEN_TTL)%'
+            $cookieDomain: '%env(STRICT_DOMAIN)%'
 
     App\Service\CookieCleaner\CookieCleaner:
         arguments:
             $mercurePath: '%env(MERCURE_PATH)%'
+            $cookieDomain: '%env(STRICT_DOMAIN)%'
 
     App\EventSubscriber\Authentication\JwtCreationSubscriber:
         tags:
@@ -62,3 +65,8 @@ services:
     App\EventSubscriber\Authentication\LogoutSuccessSubscriber:
         tags:
             - { name: 'kernel.event_listener', event: 'Symfony\Component\Security\Http\Event\LogoutEvent', dispatcher: security.event_dispatcher.main, method: onLogoutSuccess }
+    
+    App\EventSubscriber\Response\ResponseSubscriber:
+        arguments:
+            $server: '%env(SERVER_DOMAIN)%'
+            $admin: '%env(ADMIN_DOMAIN)%'

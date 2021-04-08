@@ -16,16 +16,18 @@ use Symfony\Component\HttpFoundation\Response;
 class CookieCleaner
 {
     private $mercurePath;
+    private $cookieDomain;
 
-    public function __construct(string $mercurePath)
+    public function __construct(string $mercurePath, string $cookieDomain)
     {
         $this->mercurePath = $mercurePath;
+        $this->cookieDomain = $cookieDomain;
     }
 
     public function addClearHeaders(Response $response) : Response
     {
-        $response->headers->clearCookie('BEARER', '/', null);
-        $response->headers->clearCookie('mercureAuthorization', $this->mercurePath, null);
+        $response->headers->clearCookie('BEARER', '/', $this->cookieDomain);
+        $response->headers->clearCookie('mercureAuthorization', $this->mercurePath, $this->cookieDomain);
         return $response;
     }
 }

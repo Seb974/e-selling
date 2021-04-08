@@ -30,14 +30,16 @@ class CookieGenerator
     private $domain;
     private $security;
     private $tokenTTL;
+    private $cookieDomain;
     
-    public function __construct(string $key, string $domain, string $path, string $tokenTTL, Security $security)
+    public function __construct(string $key, string $domain, string $path, string $tokenTTL, string $cookieDomain, Security $security)
     {
         $this->key = $key;
         $this->path = $path;
         $this->domain = $domain;
         $this->tokenTTL = $tokenTTL;
         $this->security = $security;
+        $this->cookieDomain = $cookieDomain;
         $this->config = Configuration::forSymmetricSigner(new Sha256(), InMemory::plainText($this->key));
     }
 
@@ -52,7 +54,7 @@ class CookieGenerator
 
         return Cookie::create('mercureAuthorization')
                       ->withValue($token)
-                      ->withDomain(null)
+                      ->withDomain($this->cookieDomain)
                       ->withPath($this->path)
                       ->withSecure(true)
                       ->withHttpOnly(true)

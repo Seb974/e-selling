@@ -16,10 +16,12 @@ use Symfony\Component\HttpFoundation\Cookie;
 class CookieGenerator
 {
     private $tokenTTL;
+    private $cookieDomain;
     
-    public function __construct(string $tokenTTL)
+    public function __construct(string $tokenTTL, string $cookieDomain)
     {
         $this->tokenTTL = $tokenTTL;
+        $this->cookieDomain = $cookieDomain;
     }
 
     public function generate($token) : Cookie 
@@ -27,7 +29,7 @@ class CookieGenerator
         $expire = (new \DateTime())->add(new \DateInterval('PT' . $this->tokenTTL . 'S'));
         return Cookie::create('BEARER')
                     ->withValue($token)
-                    ->withDomain(null)
+                    ->withDomain($this->cookieDomain)
                     ->withPath('/')
                     ->withSecure(true)
                     ->withHttpOnly(true)
